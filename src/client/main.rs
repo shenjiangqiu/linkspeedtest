@@ -18,7 +18,7 @@ fn main() {
         stream.local_addr().unwrap()
     );
     stream.write_all("hello server!\n".as_bytes()).unwrap();
-    let mut buffer = [0; 13];
+    let mut buffer = [0; 14];
     stream.read_exact(&mut buffer).unwrap();
     println!("{}", String::from_utf8_lossy(&buffer));
 

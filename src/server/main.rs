@@ -10,7 +10,7 @@ fn main() {
     println!("Listening on {}", listener.local_addr().unwrap());
     if let Ok((mut stream, addr)) = listener.accept() {
         println!("Accepted connection from {}", addr);
-        let mut buffer = [0; 13];
+        let mut buffer = [0; 14];
         stream.read_exact(&mut buffer).unwrap();
         println!("{}", String::from_utf8_lossy(&buffer));
         stream.write_all("hello client!\n".as_bytes()).unwrap();

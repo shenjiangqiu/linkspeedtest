@@ -22,5 +22,8 @@ fn main() {
             println!("wrote {}M", i + 1);
 
         }
+        stream.flush().unwrap();
+        //close stream
+        stream.shutdown(std::net::Shutdown::Both).unwrap();
     }
 }

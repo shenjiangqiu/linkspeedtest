@@ -1,7 +1,7 @@
 use std::{
     env::args,
     io::{Read, Write},
-    net::TcpStream,
+    net::{TcpStream, Shutdown},
     time::Instant,
 };
 fn main() {
@@ -38,4 +38,5 @@ fn main() {
         "speed: {} MB/s",
         size_m as f64 / now.elapsed().as_secs_f64()
     );
+    stream.shutdown(Shutdown::Both).unwrap();
 }

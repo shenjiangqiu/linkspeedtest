@@ -18,8 +18,14 @@ fn main() {
     for i in 0..size_m {
         let mut remaining = 1024 * 1024;
         while remaining != 0 {
-            let n = stream.read(&mut buffer).unwrap();
-            remaining -= n;
+            let n = stream
+                .read(&mut buffer[(1024 * 1024 - remaining)..1024 * 1024])
+                .unwrap();
+            if n == 0 {
+                panic!("read 0 bytes");
+            } else {
+                remaining -= n;
+            }
         }
         println!("read {}MB", i + 1);
         println!(

@@ -2,7 +2,7 @@ use std::{env::args, io::Read, net::TcpStream, time::Instant};
 fn main() {
     let addr = args()
         .nth(1)
-        .unwrap_or_else(|| "localhost:2233".to_string());
+        .unwrap_or_else(|| "thesjq.com:2233".to_string());
     let size_m = args().nth(2).unwrap_or_else(|| "10".to_string());
     let size_m = size_m.parse::<usize>().unwrap();
 

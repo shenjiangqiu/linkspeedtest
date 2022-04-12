@@ -6,8 +6,11 @@ fn main() {
     let addr = args().nth(1).unwrap_or_else(|| ":::2233".to_string());
     let size_m = args().nth(2).unwrap_or_else(|| "10".to_string());
     let size_m = size_m.parse::<usize>().unwrap();
+
     let listener = TcpListener::bind(addr).unwrap();
+
     println!("Listening on {}", listener.local_addr().unwrap());
+    println!("Sending {}MB", size_m);
     if let Ok((mut stream, addr)) = listener.accept() {
         println!("Accepted connection from {}", addr);
         // create 1M buffer

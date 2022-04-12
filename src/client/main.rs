@@ -5,6 +5,8 @@ fn main() {
         .unwrap_or_else(|| "thesjq.com:2233".to_string());
     let size_m = args().nth(2).unwrap_or_else(|| "10".to_string());
     let size_m = size_m.parse::<usize>().unwrap();
+    println!("Connecting to {}", addr);
+    println!("Receiving {}MB", size_m);
 
     let mut stream = TcpStream::connect(addr.clone()).unwrap();
     println!(
@@ -16,17 +18,8 @@ fn main() {
     let mut buffer = vec![0; 1024 * 1024];
 
     for i in 0..size_m {
-        let mut remaining = 1024 * 1024;
-        while remaining != 0 {
-            let n = stream
-                .read(&mut buffer[(1024 * 1024 - remaining)..1024 * 1024])
-                .unwrap();
-            if n == 0 {
-                panic!("read 0 bytes");
-            } else {
-                remaining -= n;
-            }
-        }
+        stream.read_exact(&mut buffer).unwrap();
+
         println!("read {}MB", i + 1);
         println!(
             "average speed: {}MB/s",

@@ -1,5 +1,5 @@
 use std::env::args;
-use std::io::{Read, Write};
+use std::io::Write;
 use std::net::TcpListener;
 
 fn main() {
@@ -14,8 +14,7 @@ fn main() {
         let buffer = vec![0; 1024 * 1024];
         for i in 0..size_m {
             stream.write_all(buffer.as_slice()).unwrap();
-            println!("wrote {}MB", i + 1);
-
+            println!("write {}MB", i + 1);
         }
         stream.flush().unwrap();
         //close stream

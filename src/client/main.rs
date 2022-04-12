@@ -1,9 +1,4 @@
-use std::{
-    env::args,
-    io::{Read, Write},
-    net::{TcpStream, Shutdown},
-    time::Instant,
-};
+use std::{env::args, io::Read, net::TcpStream, time::Instant};
 fn main() {
     let addr = args()
         .nth(1)

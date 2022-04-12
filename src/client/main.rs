@@ -1,4 +1,9 @@
-use std::{env::args, io::Read, net::TcpStream, time::Instant};
+use std::{
+    env::args,
+    io::{Read, Write},
+    net::TcpStream,
+    time::Instant,
+};
 fn main() {
     let addr = args()
         .nth(1)
@@ -7,14 +12,27 @@ fn main() {
     let size_m = size_m.parse::<usize>().unwrap();
     println!("Connecting to {}", addr);
     println!("Receiving {}MB", size_m);
-
+    if size_m == 0 {
+        println!("sending stop signal");
+    }
     let mut stream = TcpStream::connect(addr.clone()).unwrap();
     println!(
         "Connected to {}, local address: {}",
         addr,
         stream.local_addr().unwrap()
     );
+    // send header
+    let size_m = size_m as u64;
+    let size_m_ = size_m.to_be_bytes();
+    stream.write_all(&size_m_).unwrap();
+    stream.flush().unwrap();
+    println!("Sent header");
+    if size_m == 0 {
+        println!("sent stop signal");
+        return;
+    }
     let now = Instant::now();
+
     let mut buffer = vec![0; 1024 * 1024];
 
     for i in 0..size_m {

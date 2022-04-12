@@ -14,8 +14,13 @@ fn main() {
     );
     let now = Instant::now();
     let mut buffer = vec![0; 1024 * 1024];
+
     for i in 0..size_m {
-        stream.read_exact(buffer.as_mut_slice()).unwrap();
+        let mut remaining = 1024 * 1024;
+        while remaining != 0 {
+            let n = stream.read(&mut buffer).unwrap();
+            remaining -= n;
+        }
         println!("read {}MB", i + 1);
         println!(
             "average speed: {}MB/s",

@@ -20,10 +20,10 @@ fn main() {
             break;
         }
         // create 1M buffer
-        let buffer = vec![0; 1024 * 1024];
+        let buffer = vec![0; 10 * 1024 * 1024];
         for i in 0..size_m {
             stream.write_all(&buffer).unwrap();
-            println!("write {}MB", i + 1);
+            println!("write {} MB", 10 * (i + 1));
         }
         stream.flush().unwrap();
         //close stream
